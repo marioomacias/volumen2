@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17231f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Volumen 2">
+  <meta name="description" content="Tu espacio personal para organizar deporte, estudios, dinero y vida.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Volumen 2 · Mi vida</title>
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">MI VIDA · MI DIRECCIÓN</p><h1>Volumen 2</h1><p class="subtitle">Construir una vida que te guste vivir.</p></div>
+    <span class="date" id="today"></span>
+  </header>
+
+  <main>
+    <section class="stats">
+      <article class="card"><p class="muted">Objetivos completados</p><strong id="goalCount">0/0</strong><div class="progress"><i id="goalProgress"></i></div></article>
+      <article class="card"><p class="muted">Gastos registrados</p><strong id="expenseTotal">€0.00</strong><p class="hint">Total de tus movimientos</p></article>
+    </section>
+
+    <nav class="tabs" aria-label="Secciones">
+      <button class="tab active" data-view="home">Inicio</button>
+      <button class="tab" data-view="week">Semana</button>
+      <button class="tab" data-view="money">Dinero</button>
+      <button class="tab" data-view="goals">Objetivos</button>
+      <button class="tab" data-view="books">Libros</button>
+      <button class="tab" data-view="study">SMIR</button>
+    </nav>
+
+    <section class="view" id="view-home">
+      <article class="card"><div class="section-heading"><div><h2>Hoy</h2><p class="muted">Un paso cada vez.</p></div><span class="pill" id="weekday"></span></div><div id="todayPlan"></div></article>
+      <article class="card"><h2>Tus cinco pilares</h2><div class="pillar-grid">
+        <div class="pillar">🏃 <b>Deporte</b><small>Roma · 14 marzo 2027</small></div>
+        <div class="pillar">💻 <b>Formación</b><small>SMIR · enero 2027</small></div>
+        <div class="pillar">💶 <b>Economía</b><small>Colchón y ahorro</small></div>
+        <div class="pillar">📚 <b>Cultura</b><small>Leer y descubrir</small></div>
+        <div class="pillar wide">☘️ <b>Vida social</b><small>Amigos, planes y raíces en Dublín</small></div>
+      </div></article>
+      <article class="card"><h2>Compromisos fijos</h2><div class="list-row"><b>⚽ Martes · Fútbol</b><span>19:15–21:00</span></div><div class="list-row"><b>⚽ Jueves · Fútbol</b><span>20:15–22:00</span></div><div class="list-row"><b>🍳 Cocina</b><span>Domingo y miércoles</span></div></article>
+    </section>
+
+    <section class="view hidden" id="view-week">
+      <article class="card"><h2>Mi semana</h2><p class="muted">Tu trabajo rota. Mueve los bloques según el turno.</p><div id="weekPlan"></div></article>
+      <article class="card"><h2>Comida y cocina</h2><p>Como comes en el trabajo, la idea es preparar cenas sencillas y dejar bases listas para varios días.</p><div class="two-col"><div><b>Domingo</b><small>Preparar bases para lunes, martes y miércoles.</small></div><div><b>Miércoles</b><small>Preparar bases para jueves, viernes y sábado.</small></div></div><p class="muted">Ideas: arroz o patata + pollo, huevos, atún o legumbres + verduras. Desayunos: avena, yogur, fruta, tostadas o huevos.</p></article>
+    </section>
+
+    <section class="view hidden" id="view-money">
+      <article class="card"><h2>Mi economía</h2><p class="muted">Referencia mínima: 37 h × €15 brutos/h.</p><div class="money-reference"><strong>€555</strong><span>brutos por semana</span></div><div class="two-col"><div><small>Media mensual bruta</small><b>€2,405</b></div><div><small>Estimación anual bruta</small><b>€28,860</b></div></div><p class="hint">Estimaciones antes de impuestos, suponiendo 37 horas pagadas cada semana.</p></article>
+      <article class="card"><h2>Añadir movimiento</h2><form id="moneyForm" class="form-grid">
+        <label>Tipo<select id="moneyType"><option value="expense">Gasto</option><option value="income">Ingreso</option><option value="saving">Ahorro</option></select></label>
+        <label>Importe (€)<input id="moneyAmount" type="number" min="0.01" step="0.01" required placeholder="24.50"></label>
+        <label>Categoría<select id="moneyCategory"><option>Alquiler</option><option>Comida</option><option>Transporte</option><option>Ocio</option><option>Deporte</option><option>Estudios</option><option>Compras</option><option>Otros</option><option>Salario</option></select></label>
+        <label>Fecha<input id="moneyDate" type="date" required></label>
+        <label class="full">Nota<input id="moneyNote" placeholder="Ej. compra semanal"></label>
+        <button class="primary full" type="submit">Guardar movimiento</button>
+      </form></article>
+      <article class="card"><h2>Resumen</h2><div class="summary-grid"><div><small>Ingresos</small><b class="positive" id="incomeTotal">€0</b></div><div><small>Gastos</small><b class="negative" id="expenseSummary">€0</b></div><div><small>Ahorro</small><b id="savingTotal">€0</b></div><div><small>Balance</small><b id="balanceTotal">€0</b></div></div><div id="moneyList"></div></article>
+      <article class="card"><h2>Mi colchón</h2><div class="form-grid"><label>Objetivo (€)<input id="bufferGoal" type="number" min="0" placeholder="Ej. 1500"></label><label>Reservado (€)<input id="bufferCurrent" type="number" min="0" placeholder="Ej. 200"></label><button class="secondary full" id="saveBuffer" type="button">Guardar objetivo</button></div><div class="progress"><i id="bufferProgress"></i></div><p class="hint" id="bufferLabel">Define tu objetivo para ver el progreso.</p></article>
+    </section>
+
+    <section class="view hidden" id="view-goals">
+      <article class="card"><h2>Mis objetivos</h2><p class="muted">Marca los avances que hayas conseguido.</p><div id="goalList"></div></article>
+      <article class="card"><h2>Añadir objetivo</h2><form id="goalForm" class="form-grid"><label class="full">¿Qué quieres conseguir?<input id="goalInput" required placeholder="Ej. ahorrar para viajar"></label><button class="primary full">Añadir</button></form></article>
+    </section>
+
+    <section class="view hidden" id="view-books">
+      <article class="card"><h2>Mi biblioteca</h2><p class="muted">En curso, terminados y próximos.</p><div id="bookList"></div></article>
+      <article class="card"><h2>Añadir libro</h2><form id="bookForm" class="form-grid"><label class="full">Título<input id="bookTitle" required placeholder="Nombre del libro"></label><label class="full">Autor<input id="bookAuthor" placeholder="Autor"></label><label class="full">Estado<select id="bookStatus"><option>Quiero leer</option><option>Leyendo</option><option>Terminado</option></select></label><button class="primary full">Añadir libro</button></form></article>
+      <article class="card"><h2>Tu punto de partida</h2><div class="list-row"><b>Rebelión en la granja</b><span>Leyendo · Inglés</span></div><div class="list-row"><b>The Alchemist</b><span>Leyendo · Inglés</span></div><div class="list-row"><b>Tuesdays with Morrie</b><span>En pausa · ¼ leído</span></div></article>
+    </section>
+
+    <section class="view hidden" id="view-study">
+      <article class="card"><h2>SMIR · Ilerna</h2><p class="muted">Exámenes: 18, 19 y 20 de enero de 2027.</p><div class="progress"><i id="studyProgress"></i></div><p class="hint" id="studyLabel"></p><div id="subjectList"></div></article>
+      <article class="card"><h2>Tu método de estudio</h2><div class="list-row"><b>5 min</b><span>Recordar sin mirar apuntes</span></div><div class="list-row"><b>25 min</b><span>Estudiar un concepto</span></div><div class="list-row"><b>5 min</b><span>Descansar</span></div><div class="list-row"><b>25 min</b><span>Ejercicios o explicarlo</span></div><div class="list-row"><b>5 min</b><span>Anotar dudas y siguiente paso</span></div></article>
+    </section>
+  </main>
+  <footer>Una vida, no una competición. Tus datos se guardan en este dispositivo.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
